@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import {useState} from 'react';
+import Search from './Search.js';
+import Dictionary from './Dictionary';
 
 export default function App() {
 
@@ -15,7 +17,15 @@ export default function App() {
       setNewWord("");
       setMessage("");
     };
-    
+
+    function handleDictionaryChange(event) {
+      setNewWord(event.target.value);
+    }
+
+    function handleSearchChange(event) {
+      setWord(event.target.value);
+    }
+
     function handleSearchSubmit(event) {
       event.preventDefault();
       if(dictionary.includes(word)) {
@@ -25,31 +35,14 @@ export default function App() {
       }
       setWord("");
     }
-
   return (
-    <>
-    <div className="App">
-      <header className="Dictionary"> 
-        <h1>Dictionary</h1>
-      </header>
-      <h2>
-        <form onSubmit={handleDictionarySubmit}>
-        <label htmlFor='myInput'></label>
-        <input type="text" placeholder="Write a word:" id="myInput" value={newWord} onChange={e=> setNewWord(e.target.value)} />
-        <input type="submit" value="Add word" />
-        </form>
-      </h2>
-
-      <h2>
-        <form onSubmit={handleSearchSubmit}>
-        <label htmlFor='myWordSearch'></label>
-        <input type="text" placeholder="Write a word:" id="myWordSearch" value={word} onChange={e=> setWord(e.target.value)} />
-        <input type="submit" value="Search" />
-        </form>
-      </h2>
+  <>
+    <div>
+      <Dictionary dictionary={dictionary} onDictionaryChange={handleDictionaryChange} onDictionarySubmit={handleDictionarySubmit}/>
     </div>
-   <div>{message}</div>
+    <div> 
+      <Search word={word} onSearchSubmit={handleSearchSubmit} onSearchChange={handleSearchChange} message={message} />
+    </div>
     </>
   );
 }
-
