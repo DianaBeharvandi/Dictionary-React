@@ -18,14 +18,6 @@ export default function App() {
       setMessage("");
     };
 
-    function handleDictionaryChange(event) {
-      setNewWord(event.target.value);
-    }
-
-    function handleSearchChange(event) {
-      setWord(event.target.value);
-    }
-
     function handleSearchSubmit(event) {
       event.preventDefault();
       if(dictionary.includes(word)) {
@@ -38,10 +30,10 @@ export default function App() {
   return (
   <>
     <div>
-      <Dictionary dictionary={dictionary} onDictionaryChange={handleDictionaryChange} onDictionarySubmit={handleDictionarySubmit}/>
+      <Dictionary dictionary={dictionary} onChange={e => setNewWord(e.target.value)} onDictionarySubmit={handleDictionarySubmit}/>
     </div>
     <div> 
-      <Search word={word} onSearchSubmit={handleSearchSubmit} onSearchChange={handleSearchChange} message={message} />
+      <Search word={word} onSearchSubmit={handleSearchSubmit} onChange={e=> setWord(e.target.value)} message={message} />
     </div>
     </>
   );
